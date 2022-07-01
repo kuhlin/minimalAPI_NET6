@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ "4-fix-the-actions" ]
+    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 

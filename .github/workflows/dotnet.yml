@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "4-fix-the-actions" ]
   pull_request:
     branches: [ "master" ]
 
@@ -19,6 +19,8 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - name: changing working directory
+      run: cd .\PizzaStore\
     - name: Build
       run: dotnet build --no-restore
     - name: Test

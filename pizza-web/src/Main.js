@@ -75,7 +75,7 @@ const Main = () => {
   function fetchData() {
     fetch("/pizzas")
       .then(response => response.json())
-      .then(data => setPizzas(data)) 
+      .then(dataFromBack => setPizzas(dataFromBack)) 
   }
 
   const data = pizzas.map(pizza => <Pizza pizza={pizza} />)

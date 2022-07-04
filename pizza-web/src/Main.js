@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const PizzaFrame = styled.div`
@@ -29,14 +29,14 @@ const Save = styled.button`
    padding: 10px;
    border-radius: 5px;
 `;
-
+/* -- Initial Data
 let pizzas = [{
 id: 1, name: 'Cheese pizza', description: 'very cheesy'
 },
 {
 id: 2, name: 'Al Tono pizza', description: 'lots of tuna'
 }];
-
+*/
 const Pizza = ({ pizza }) => {
    const [data, setData] = useState(pizza);
    const [dirty, setDirty] = useState(false);
@@ -67,11 +67,25 @@ const Pizza = ({ pizza }) => {
 }
 
 const Main = () => {
-    const data = pizzas.map(pizza => <Pizza pizza={pizza} />)
+  const [pizzas, setPizzas] = useState([]);
+  useEffect(() => {
+    fetchData();
+  }, [])
 
-    return (<React.Fragment>
-     {data}
-     </React.Fragment>)
+  function fetchData() {
+    fetch("/pizzas")
+      .then(response => response.json())
+      .then(data => setPizzas(data)) 
+  }
+
+  const data = pizzas.map(pizza => <Pizza pizza={pizza} />)
+
+  return (<React.Fragment>
+    {pizzas.length === 0 ?
+     <div>No pizzas</div> :
+     <div>{data}</div>
     }
+  </React.Fragment>)
+}
 
 export default Main;

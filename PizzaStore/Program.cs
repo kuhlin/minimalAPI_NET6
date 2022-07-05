@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 ///using PizzaStore.DB; -> used in the first stage
 using PizzaStore.Models;
 
+string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 //var connectionString = builder.Configuration.GetConnectionString("Pizzas") ?? "Data Source=Pizzas.db";
 
@@ -10,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<PizzaDb>(options => options.UseInMemoryDatabase("items"));
 //builder.Services.AddSqlite<PizzaDb>(connectionString);
 builder.Services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "PizzaStore API", Description = "Making the Pizzas you love", Version = "v1" }));
+builder.Services.AddCors(options => options.AddPolicy(name: MyAllowSpecificOrigins, builder => builder.WithOrigins("*")));
 
 var app = builder.Build();
 
@@ -20,6 +22,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PizzaStore API V1"));
+app.UseCors(MyAllowSpecificOrigins);
 
 app.MapGet("/", () => "Hello World!");
 ///-- used in the first stage with "using PizzaStore.DB" namspace

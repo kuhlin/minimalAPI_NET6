@@ -39,5 +39,8 @@
   "resolutions": {
     "styled-components": "^5"
   },
-  "proxy": "http://localhost:5185"
+  "proxy": "http://localhost:5185",
+  "devDependencies": {
+    "json5": "^2.2.2"
+  }
 }
